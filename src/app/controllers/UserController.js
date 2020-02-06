@@ -7,9 +7,10 @@ async store (req, res)  {
   if (userExists) {
     return res.status(400).json({error: "User already exists"});
   }
+
 const { id, name, email, provider } = await User.create(req.body);
 
-  return res.json({
+return res.json({
     id,
     name,
     email,
@@ -18,13 +19,13 @@ const { id, name, email, provider } = await User.create(req.body);
 
 }
 
-  async update(req, res) {
+async update(req, res) {
 
 const {email, oldPassword } = req.body;
 
 const user = await User.findByPk(req.userId);
 
-if (email && email != user.mail ) {
+if (email && email != user.email ) {
   const userExists = await User.findOne({where: {email }});
 
   if (userExists) {
